@@ -22,6 +22,7 @@ module.exports = {
       },
     ],
     camelcase: 'off',
+    'space-before-function-paren': 'off',
     'no-warning-comments': 'warn',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',

@@ -2,13 +2,14 @@ import * as TE from 'fp-ts/TaskEither'
 import { pipe } from 'fp-ts/lib/function'
 import { register, OutsideRegister } from './register'
 import { CreateUser } from '@/core/types/user'
+import { unsafeEmail } from '@/config/tests/fixtures'
 
 const registerOk: OutsideRegister<string> = async (data) => {
   return `User ${data.username} registered with success.`
 }
 
 const data: CreateUser = {
-  email: 'email@mail.co',
+  email: unsafeEmail('email@mail.co'),
   password: 'safePass',
   username: 'danizeero',
 }
