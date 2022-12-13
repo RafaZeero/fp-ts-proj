@@ -1,4 +1,4 @@
-import { Profile } from "@/core/types/profile";
+import { Profile } from '@/core/types/profile'
 
 export type Comment = {
   id: number;

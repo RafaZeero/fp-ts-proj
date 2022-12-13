@@ -1,5 +1,5 @@
-import { Profile } from "@/core/types/profile";
-import { Tag } from "@/core/types/tag";
+import { Profile } from '@/core/types/profile'
+import { Tag } from '@/core/types/tag'
 
 export type Article = {
   slug: string;
