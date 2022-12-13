@@ -6,7 +6,7 @@ import { CreateUser } from '@/core/types/user'
 export type OutsideRegister<A> = (data: CreateUser) => Promise<A>
 
 type Register = <A>(
-  outsideRegister: OutsideRegister<A>
+  outsideRegister: OutsideRegister<A>,
 ) => (data: CreateUser) => TE.TaskEither<Error, A>
 
 export const register: Register = (outsideRegister) => (data) => {
