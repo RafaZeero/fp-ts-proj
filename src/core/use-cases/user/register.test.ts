@@ -1,8 +1,7 @@
-import * as TE from 'fp-ts/TaskEither'
 import { pipe } from 'fp-ts/lib/function'
 import { register, OutsideRegister } from './register'
 import { CreateUser } from '@/core/types/user'
-import { unsafeEmail } from '@/config/tests/fixtures'
+import { unsafeEmail, TEmapAll } from '@/config/tests/fixtures'
 
 const registerOk: OutsideRegister<string> = async (data) => {
   return `User ${data.username} registered with success.`
@@ -18,7 +17,7 @@ it('should register a new user with success', async () => {
   return pipe(
     data,
     register(registerOk),
-    TE.map((result) =>
+    TEmapAll((result) =>
       expect(result).toBe(`User ${data.username} registered with success.`),
     ),
   )()
