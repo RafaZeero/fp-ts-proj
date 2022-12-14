@@ -8,16 +8,16 @@ export function unsafeEmail(value: string): Email {
 }
 
 type Callback = (value: unknown) => unknown
-type TEMapAll = (
+type MapAllTE = (
   fn: Callback,
 ) => (data: TE.TaskEither<unknown, unknown>) => TE.TaskEither<unknown, unknown>
-export const TEmapAll: TEMapAll = (fn) => (data) => {
+export const mapAllTE: MapAllTE = (fn) => (data) => {
   return pipe(data, TE.map(fn), TE.mapLeft(fn))
 }
 
-type EMapAll = (
+type MapAllE = (
   fn: Callback,
 ) => (data: E.Either<unknown, unknown>) => E.Either<unknown, unknown>
-export const EmapAll: EMapAll = (fn) => (data) => {
+export const mapAllE: MapAllE = (fn) => (data) => {
   return pipe(data, E.map(fn), E.mapLeft(fn))
 }
