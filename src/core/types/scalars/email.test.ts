@@ -15,10 +15,8 @@ it('should return an error when email is invalid', () => {
     'mail',
     emailCodec.decode,
     mapAllE((error) => {
-      if (Array.isArray(error)) {
-        // eslint-disable-next-line jest/no-conditional-expect
-        expect(error[0]?.message).toBe('Invalid email')
-      }
+      const errorMessage: string = Array.isArray(error) ? error[0]?.message : ''
+      expect(errorMessage).toBe('Invalid email')
     }),
   )
 })
