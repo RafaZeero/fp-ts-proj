@@ -11,7 +11,16 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
-    'comma-dangle': 'off',
+    'comma-dangle': [
+      'warn',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'always-multiline',
+        exports: 'always-multiline',
+        functions: 'always-multiline',
+      },
+    ],
     camelcase: 'off',
     'space-before-function-paren': 'off',
     'no-warning-comments': 'warn',
