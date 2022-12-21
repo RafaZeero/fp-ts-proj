@@ -2,6 +2,7 @@ import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/Either'
 import { pipe } from 'fp-ts/lib/function'
 import { CreateUser } from '@/core/types/user'
+import { validateUser } from './validate-user'
 
 export type OutsideRegister<A> = (data: CreateUser) => Promise<A>
 
@@ -10,5 +11,10 @@ type Register = <A>(
 ) => (data: CreateUser) => TE.TaskEither<Error, A>
 
 export const register: Register = (outsideRegister) => (data) => {
-  return pipe(TE.tryCatch(() => outsideRegister(data), E.toError))
+  return pipe(
+    data,
+    validateUser,
+    TE.fromEither,
+    TE.chain(() => TE.tryCatch(() => outsideRegister(data), E.toError)),
+  )
 }
