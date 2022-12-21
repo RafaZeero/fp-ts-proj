@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import { register, OutsideRegister } from './register'
 import { CreateUser } from '@/core/types/user'
-import { unsafeEmail, mapAllTE } from '@/config/tests/fixtures'
+import { unsafeEmail, mapAll } from '@/config/tests/fixtures'
 
 const registerOk: OutsideRegister<string> = async (data) => {
   return `User ${data.username} registered with success.`
@@ -17,7 +17,7 @@ it('should register a new user with success', async () => {
   return pipe(
     data,
     register(registerOk),
-    mapAllTE((result) =>
+    mapAll((result) =>
       expect(result).toBe(`User ${data.username} registered with success.`),
     ),
   )()

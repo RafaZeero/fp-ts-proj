@@ -1,4 +1,5 @@
-import { mapAllE } from '@/config/tests/fixtures'
+import * as TE from 'fp-ts/TaskEither'
+import { mapAll } from '@/config/tests/fixtures'
 import { pipe } from 'fp-ts/lib/function'
 import { dateCodec } from './date'
 
@@ -8,6 +9,7 @@ it('should validate date properly', () => {
   pipe(
     date,
     dateCodec.decode,
-    mapAllE((result) => expect(result).toBe(date)),
+    TE.fromEither,
+    mapAll((result) => expect(result).toBe(date)),
   )
 })

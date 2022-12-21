@@ -1,12 +1,14 @@
+import * as TE from 'fp-ts/TaskEither'
 import { urlCodec } from './url'
 import { pipe } from 'fp-ts/lib/function'
-import { mapAllE } from '@/config/tests/fixtures'
+import { getErrorMessage, mapAll } from '@/config/tests/fixtures'
 
 it('should validate url correctly', () => {
   pipe(
     'https://url.com',
     urlCodec.decode,
-    mapAllE((result) => expect(result).toBe('https://url.com')),
+    TE.fromEither,
+    mapAll((result) => expect(result).toBe('https://url.com')),
   )
 })
 
@@ -14,9 +16,9 @@ it('should return an error when email is invalid', () => {
   pipe(
     'url',
     urlCodec.decode,
-    mapAllE((error) => {
-      const errorUrl: string = Array.isArray(error) ? error[0].message : ''
-      expect(errorUrl).toBe('Invalid URL!')
+    TE.fromEither,
+    mapAll((error) => {
+      expect(getErrorMessage(error)).toBe('Invalid URL!')
     }),
   )
 })
