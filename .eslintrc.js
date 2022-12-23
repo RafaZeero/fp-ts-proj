@@ -12,7 +12,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'comma-dangle': [
-      'warn',
+      'off',
       {
         arrays: 'always-multiline',
         objects: 'always-multiline',
