@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "problemMatcher": [],
+      "label": "run server",
+      "detail": "nodemon --exec sucrase-node src/index.ts"
+    },
+    {
+      "type": "npm",
+      "script": "test:watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "run tests watch mode",
+      "detail": "jest --watch"
+    }
+  ]
+}
