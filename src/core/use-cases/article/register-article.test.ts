@@ -20,5 +20,5 @@ it('should create an Article', async () => {
     mapAll((result) =>
       expect(result).toBe(`Article ${data.title} successfully created!`),
     ),
-  )
+  )()
 })
