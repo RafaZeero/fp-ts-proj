@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import { CreateArticle } from '@/core/types/article'
 import { mapAll } from '@/config/tests/fixtures'
-import { registerArticle, OutsideRegister } from './register-article'
+import { registerArticle, OutsideRegisterArticle } from './register-article'
 
 const data: CreateArticle = {
   title: 'Article title',
@@ -9,7 +9,9 @@ const data: CreateArticle = {
   description: 'Article description',
 }
 
-const registerOk: OutsideRegister<string> = async (data: CreateArticle) => {
+const registerOk: OutsideRegisterArticle<string> = async (
+  data: CreateArticle,
+) => {
   return `Article ${data.title} successfully created!`
 }
 

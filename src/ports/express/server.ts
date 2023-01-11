@@ -1,9 +1,13 @@
 import express from 'express'
 import type { Request, Response } from 'express'
 import * as TE from 'fp-ts/TaskEither'
-import { register } from '@/adapters/use-cases/user/register-adapter'
 import { pipe } from 'fp-ts/lib/function'
-import { userRegister } from '@/adapters/ports/db'
+import { register } from '@/adapters/use-cases/user/register-adapter'
+import { registerArticle } from '@/adapters/use-cases/article/register-article-adapter'
+import {
+  userRegister,
+  articleRegister as createArticleInDB,
+} from '@/adapters/ports/db'
 
 const app = express()
 const PORT = process.env.PORT
@@ -11,12 +15,23 @@ const PORT = process.env.PORT
 app.use(express.urlencoded({ extended: true })) /** Allow req.body */
 app.use(express.json())
 
+// public
 app.post('/api/users', async (req: Request, res: Response) => {
   return pipe(
     req.body.user,
     register(userRegister),
     TE.map((result) => res.json(result)),
-    TE.mapLeft((error) => res.status(401).json({ error: error.message })),
+    TE.mapLeft((error) => res.status(422).json({ error: error.message })),
+  )()
+})
+
+// private
+app.post('/api/articles', async (req: Request, res: Response) => {
+  return pipe(
+    req.body.article,
+    registerArticle(createArticleInDB),
+    TE.map((result) => res.json(result)),
+    TE.mapLeft((error) => res.status(422).json({ error: error.message })),
   )()
 })
 

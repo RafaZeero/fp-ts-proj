@@ -26,4 +26,4 @@ export type Slug = t.TypeOf<typeof slugCodec>
  * @returns boolean
  */
 const isSlug = (value: string): boolean =>
-  /^[a-z][a-z0-9-]+?[a-z0-9]$/.test(value)
+  /^[a-z][a-z0-9_-]+?[a-z0-9]$/.test(value)
