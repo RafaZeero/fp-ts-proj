@@ -4,10 +4,7 @@ import * as TE from 'fp-ts/TaskEither'
 import { pipe } from 'fp-ts/lib/function'
 import { registerUser } from '@/adapters/use-cases/user/register-adapter'
 import { registerArticle } from '@/adapters/use-cases/article/register-article-adapter'
-import {
-  userRegister,
-  articleRegister as createArticleInDB,
-} from '@/adapters/ports/db'
+import { createUserInDB, createArticleInDB } from '@/adapters/ports/db'
 
 const app = express()
 const PORT = process.env.PORT
@@ -19,7 +16,7 @@ app.use(express.json())
 app.post('/api/users', async (req: Request, res: Response) => {
   return pipe(
     req.body.user,
-    registerUser(userRegister),
+    registerUser(createUserInDB),
     TE.map((result) => res.json(result)),
     TE.mapLeft((error) => res.status(422).json(getError(error.message))),
   )()
