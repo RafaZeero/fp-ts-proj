@@ -2,7 +2,7 @@ import express from 'express'
 import type { Request, Response } from 'express'
 import * as TE from 'fp-ts/TaskEither'
 import { pipe } from 'fp-ts/lib/function'
-import { register } from '@/adapters/use-cases/user/register-adapter'
+import { registerUser } from '@/adapters/use-cases/user/register-adapter'
 import { registerArticle } from '@/adapters/use-cases/article/register-article-adapter'
 import {
   userRegister,
@@ -19,9 +19,9 @@ app.use(express.json())
 app.post('/api/users', async (req: Request, res: Response) => {
   return pipe(
     req.body.user,
-    register(userRegister),
+    registerUser(userRegister),
     TE.map((result) => res.json(result)),
-    TE.mapLeft((error) => res.status(422).json({ error: error.message })),
+    TE.mapLeft((error) => res.status(422).json(getError(error.message))),
   )()
 })
 
@@ -31,10 +31,18 @@ app.post('/api/articles', async (req: Request, res: Response) => {
     req.body.article,
     registerArticle(createArticleInDB),
     TE.map((result) => res.json(result)),
-    TE.mapLeft((error) => res.status(422).json({ error: error.message })),
+    TE.mapLeft((error) => res.status(422).json(getError(error.message))),
   )()
 })
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)
 })
+
+function getError(errors: string) {
+  return {
+    errors: {
+      body: errors.split(':::'),
+    },
+  }
+}
