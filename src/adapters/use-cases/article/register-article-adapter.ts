@@ -1,4 +1,4 @@
-import { Article } from '@/core/types/article'
+import { ArticleOutput as Article } from '@/core/types/article'
 import {
   registerArticle as registerArticleCore,
   OutsideRegisterArticle,
