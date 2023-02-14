@@ -2,6 +2,7 @@ import * as t from 'io-ts'
 import * as E from 'fp-ts/Either'
 import { withMessage } from 'io-ts-types'
 import { pipe } from 'fp-ts/lib/function'
+import { failure } from 'io-ts/lib/PathReporter'
 
 type LengthBrand = {
   readonly NonEmptyString: unique symbol
@@ -26,8 +27,8 @@ export const env: Env = (value) => {
   return pipe(
     envCodec.decode(process.env[value]),
     E.fold(
-      (error) => {
-        throw error
+      (errors) => {
+        throw new Error(failure(errors).join(':::'))
       },
       (value) => value,
     ),
