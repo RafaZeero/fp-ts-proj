@@ -5,9 +5,10 @@ import { pipe } from 'fp-ts/lib/function'
 import { registerUser } from '@/adapters/use-cases/user/register-adapter'
 import { registerArticle } from '@/adapters/use-cases/article/register-article-adapter'
 import { createUserInDB, createArticleInDB } from '@/adapters/ports/db'
+import { env } from '@/helpers'
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = env('PORT')
 
 app.use(express.urlencoded({ extended: true })) /** Allow req.body */
 app.use(express.json())
