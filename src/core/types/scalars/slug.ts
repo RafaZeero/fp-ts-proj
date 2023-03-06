@@ -1,9 +1,9 @@
-import * as t from 'io-ts'
-import { withMessage } from 'io-ts-types'
+import * as t from 'io-ts';
+import { withMessage } from 'io-ts-types';
 
 type SlugBrand = {
-  readonly Slug: unique symbol
-}
+  readonly Slug: unique symbol;
+};
 
 export const slugCodec = withMessage(
   t.brand(
@@ -13,11 +13,12 @@ export const slugCodec = withMessage(
   ),
   () =>
     'Invalid Slug! Please, use only alphanumeric characters, dash and/or numbers',
-)
+);
 
-export type Slug = t.TypeOf<typeof slugCodec>
+export type Slug = t.TypeOf<typeof slugCodec>;
 
 /**
+ * @description
  * Accept:
  * - must starts with a lowercase letter,
  * - followed by a lowercase letter, number or dash,
@@ -25,5 +26,5 @@ export type Slug = t.TypeOf<typeof slugCodec>
  * @param value - string
  * @returns boolean
  */
-const isSlug = (value: string): boolean =>
-  /^[a-z][a-z0-9_-]+?[a-z0-9]$/.test(value)
+const isSlug = (value: string): value is t.Branded<string, SlugBrand> =>
+  /^[a-z][a-z0-9_-]+?[a-z0-9]$/.test(value);

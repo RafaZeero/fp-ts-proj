@@ -22,6 +22,7 @@ module.exports = {
       },
     ],
     camelcase: 'off',
+    semi: ['off', 'always'],
     'space-before-function-paren': 'off',
     'no-warning-comments': 'warn',
     'react/react-in-jsx-scope': 'off',
@@ -29,4 +30,4 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true }],
   },
-}
+};

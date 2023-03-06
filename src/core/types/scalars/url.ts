@@ -1,12 +1,12 @@
-import { URL } from 'url'
-import * as t from 'io-ts'
-import { withMessage } from 'io-ts-types'
-import { pipe, constFalse, constTrue } from 'fp-ts/lib/function'
-import * as E from 'fp-ts/Either'
+import * as E from 'fp-ts/Either';
+import { constFalse, constTrue, pipe } from 'fp-ts/lib/function';
+import * as t from 'io-ts';
+import { withMessage } from 'io-ts-types';
+import { URL } from 'url';
 
 type URLBrand = {
-  readonly Url: unique symbol
-}
+  readonly Url: unique symbol;
+};
 
 export const urlCodec = withMessage(
   t.brand(
@@ -15,9 +15,9 @@ export const urlCodec = withMessage(
     'Url',
   ),
   () => 'Invalid URL!',
-)
+);
 
-export type Url = t.TypeOf<typeof urlCodec>
+export type Url = t.TypeOf<typeof urlCodec>;
 
 const isUrl = (input: unknown) => {
   return pipe(
@@ -25,9 +25,6 @@ const isUrl = (input: unknown) => {
       () => new URL(typeof input === 'string' ? input : ''),
       E.toError,
     ),
-    E.fold(
-      constFalse, /* () => false */
-      constTrue /* () => true */
-    )
-  )
-}
+    E.fold(constFalse /* () => false */, constTrue /* () => true */),
+  );
+};
