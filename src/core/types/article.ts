@@ -35,19 +35,19 @@ export const articlesCodec = t.type({
 
 export type Articles = t.TypeOf<typeof articlesCodec>;
 
-const creatableArticleRequired = t.type({
+const createArticleRequired = t.type({
   title: withMessage(t.string, () => 'Invalid title'),
   description: withMessage(t.string, () => 'Invalid description'),
   body: withMessage(t.string, () => 'Invalid body'),
 });
 
-const creatableArticleOptional = t.partial({
+const createArticleOptional = t.partial({
   tagList: t.array(tagCodec),
 });
 
-export const creatableArticleCodec = t.intersection([
-  creatableArticleRequired,
-  creatableArticleOptional,
+export const createArticleCodec = t.intersection([
+  createArticleRequired,
+  createArticleOptional,
 ]);
 
-export type CreatableArticle = t.TypeOf<typeof creatableArticleCodec>;
+export type CreateArticle = t.TypeOf<typeof createArticleCodec>;

@@ -1,0 +1,12 @@
+import { CreateArticle, createArticleCodec } from '@/core/types/article';
+import * as E from 'fp-ts/Either';
+import { pipe } from 'fp-ts/function';
+import { failure } from 'io-ts/PathReporter';
+
+type ValidateArticle = (data: CreateArticle) => E.Either<Error, CreateArticle>;
+export const validateArticle: ValidateArticle = (data) => {
+  return pipe(
+    createArticleCodec.decode(data),
+    E.mapLeft((errors) => new Error(failure(errors).join(':::'))),
+  );
+};
