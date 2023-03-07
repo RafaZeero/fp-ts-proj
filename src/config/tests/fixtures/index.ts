@@ -1,24 +1,8 @@
-import { Email, Password, Slug } from '@/core/types/scalars';
+// import { Email, Password, Slug } from '@/core/types/scalars';
 import { pipe } from 'fp-ts/lib/function';
 import * as TE from 'fp-ts/TaskEither';
 
 export function unsafe<T>(value: unknown): T {
-  return value as any;
-}
-
-export function unsafeString(value: string): string {
-  return value as any;
-}
-
-export function unsafeEmail(value: string): Email {
-  return value as any;
-}
-
-export function unsafePassword(value: string): Password {
-  return value as any;
-}
-
-export function unsafeSlug(value: string): Slug {
   return value as any;
 }
 

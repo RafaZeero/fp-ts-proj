@@ -1,7 +1,11 @@
 import { mapAll, unsafe } from '@/config/tests/fixtures';
 import { CreateArticle } from '@/core/types/article';
+import { Slug } from '@/core/types/scalars';
 import { pipe } from 'fp-ts/lib/function';
 import { OutsideRegisterArticle, registerArticle } from './register-article';
+
+const unsafeString = (value: unknown) => unsafe<string>(value);
+const unsafeSlug = (value: unknown) => unsafe<Slug>(value);
 
 const data: CreateArticle = {
   title: 'Article title',
@@ -13,18 +17,18 @@ const dataWithTagList: CreateArticle = {
   title: 'Article title 2',
   body: 'Article body 2',
   description: 'Article description 2',
-  tagList: [unsafe('tag1'), unsafe('tag2')],
+  tagList: [unsafeSlug('tag1'), unsafeSlug('tag2')],
 };
 
 const dataWithInvalidTagList: CreateArticle = {
   title: 'Article title 3',
   body: 'Article body 3',
   description: 'Article description 3',
-  tagList: [unsafe('tag1'), unsafe('3ag2-wrong')],
+  tagList: [unsafeSlug('tag1'), unsafeSlug('3ag2-wrong')],
 };
 
 const dataWithInvalidTitle: CreateArticle = {
-  title: unsafe(1),
+  title: unsafeString(1),
   body: 'Article body',
   description: 'Article description',
 };
