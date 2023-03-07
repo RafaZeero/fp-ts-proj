@@ -41,7 +41,7 @@ it('should not accept an empty comment', async () => {
   )();
 });
 
-it('should throw an error if cannot add a comment', async () => {
+it('should not create comment if outsideCreateComment function throws an error', async () => {
   return pipe(
     data,
     addCommentToAnArticle(registerFail),
