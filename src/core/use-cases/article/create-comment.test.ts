@@ -15,6 +15,10 @@ const emptyData: CreateComment = {
 const registerOk: OutsideCreateComment<string> = async (data) =>
   `Comment added successfully: ${data.body}`;
 
+const registerFail: OutsideCreateComment<never> = async () => {
+  throw new Error('External Error');
+};
+
 it('should add comment to an article properly', async () => {
   return pipe(
     data,
@@ -34,5 +38,13 @@ it('should not accept an empty comment', async () => {
         new Error('The body of the comment must not be empty.'),
       ),
     ),
+  )();
+});
+
+it('should throw an error if cannot add a comment', async () => {
+  return pipe(
+    data,
+    addCommentToAnArticle(registerFail),
+    mapAll((result) => expect(result).toEqual(new Error('External Error'))),
   )();
 });
