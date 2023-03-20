@@ -1,6 +1,7 @@
-import { OutsideRegisterType } from '@/adapters/use-cases/user/register-adapter'
-import { OutsideRegisterType as OutsideRegisterArticle } from '@/adapters/use-cases/article/register-article-adapter'
-import slugify from 'slugify'
+import { OutsideRegisterType } from '@/adapters/use-cases/user/register-adapter';
+import { OutsideRegisterType as OutsideRegisterArticle } from '@/adapters/use-cases/article/register-article-adapter';
+import slugify from 'slugify';
+import { OutsideRegisterComment } from '@/adapters/use-cases/comment/create-comment-adapter';
 
 export const outsideRegister: OutsideRegisterType = async (data) => {
   return {
@@ -11,11 +12,11 @@ export const outsideRegister: OutsideRegisterType = async (data) => {
       bio: '',
       image: undefined,
     },
-  }
-}
+  };
+};
 
 export const outsideRegisterArticle: OutsideRegisterArticle = async (data) => {
-  const date = new Date().toISOString()
+  const date = new Date().toISOString();
   return {
     article: {
       slug: slugify(data.title, { lower: true }),
@@ -34,5 +35,24 @@ export const outsideRegisterArticle: OutsideRegisterArticle = async (data) => {
       //   following: false,
       // },
     },
-  }
-}
+  };
+};
+
+export const outsideCreateComment: OutsideRegisterComment = async (data) => {
+  const date = new Date().toISOString();
+
+  return {
+    comment: {
+      id: Date.now(),
+      body: data.body,
+      createdAt: date,
+      updatedAt: date,
+      // author: {
+      //   username: 'name',
+      //   bio: 'I work at Unvoid',
+      //   image: 'https://i.stack.imgur.com/xHWG8.jpg',
+      //   following: false,
+      // },
+    },
+  };
+};
